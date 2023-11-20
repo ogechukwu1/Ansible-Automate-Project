@@ -119,7 +119,6 @@ __INSTALL AND CONFIGURE ANSIBLE ON EC2 INSTANCE__
 We will update the __Name tag__ on our __Jenkins EC2 Instance__ to __Jenkins-Ansible.__ We will use this server to run our playbooks.
 
 
-
 ![](./images/1.png)
 
 
@@ -434,15 +433,17 @@ Update the __/etc/hosts/__ of the jenkins-ansible server with the _webservers, d
 
 Update the inventory/dev.ini file with the folowing:
 
-`nfs-server ansible_host=<NFS-Server-Private-IP-Address> ansible_ssh_user=ec2-user ansible_ssh_private_key_file=oges-key.pem`
+```
 
-`webserver1 ansible_host=<WebServer1-Private-IP-Address> ansible_ssh_user=ec2-user ansible_ssh_private_key_file=oges-key.pem`
+nfs-server ansible_host=<NFS-Server-Private-IP-Address> ansible_ssh_user=ec2-user ansible_ssh_private_key_file=oges-key.pem
 
-`webserver2 ansible_host=<WebServer2-Private-IP-Address> ansible_ssh_user=ec2-user ansible_ssh_private_key_file=oges-key.pem`
+webserver1 ansible_host=<WebServer1-Private-IP-Address> ansible_ssh_user=ec2-user ansible_ssh_private_key_file=oges-key.pem
 
-`db-server ansible_host=<Database-Private-IP-Address> ansible_ssh_user=ec2-user ansible_ssh_private_key_file=oges-key.pem`
+webserver2 ansible_host=<WebServer2-Private-IP-Address> ansible_ssh_user=ec2-user ansible_ssh_private_key_file=oges-key.pem
 
-`load-balancer ansible_host=<Load-Balancer-Private-IP-Address>ansible_ssh_user=ubuntu ansible_ssh_private_key_file=oges-key.pem`
+db-server ansible_host=<Database-Private-IP-Address> ansible_ssh_user=ec2-user ansible_ssh_private_key_file=oges-key.pem
+
+load-balancer ansible_host=<Load-Balancer-Private-IP-Address>ansible_ssh_user=ubuntu ansible_ssh_private_key_file=oges-key.pem
 
 [nfs]
 
@@ -460,7 +461,12 @@ db-server
 
 [lb]
 
-load-balancer
+load-balancer 
+
+
+```
+
+
 
 
 
@@ -475,8 +481,7 @@ In common.yml playbook we will write configuration for repeatable, re-usable, an
 
 Update the playbooks/common.yml file with the following:
 
-
-
+```
 ---
 
 - name: update web, nfs and db servers
@@ -521,6 +526,10 @@ Update the playbooks/common.yml file with the following:
         name: wireshark
 
         state: latest
+
+
+```
+
 
 
 
@@ -608,7 +617,7 @@ __confirm merge__
 ![](./images/44.png)
 
 
-After the merge is done, the inventory and playbooks directories are updated in the main branch.
+After the merge is done, the __inventory__ and __playbooks__ directories are updated in the main branch.
 
 
 ![](./images/45.png)
